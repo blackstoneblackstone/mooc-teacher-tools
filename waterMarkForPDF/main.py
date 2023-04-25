@@ -9,8 +9,8 @@ import aspose.slides as slides
 def add_watermark(input_ppt, watermark_image, output_ppt):
     prs = Presentation(input_ppt)
     watermark_img = Image.open(watermark_image)
-    watermark_width = Inches(7)
-    watermark_height = Inches(7)
+    watermark_width = Inches(1)
+    watermark_height = Inches(1)
     slide_width = prs.slide_width.emu
     slide_height = prs.slide_height.emu
     columns = int(slide_width / watermark_width.emu) + 1
@@ -31,15 +31,23 @@ def convert_to_pdf_aspose(pptx_file, pdf_file):
 
 if __name__ == "__main__":
     base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'assets')
-    input_ppt = os.path.join(base_path, 'input.pptx')
+    input_folder = os.path.join(base_path, 'input')
     watermark_image = os.path.join(base_path, 'watermark.png')
-    output_ppt = os.path.join(base_path, 'output.pptx')
-    output_pdf = os.path.join(base_path, 'output.pdf')
+    output_folder = os.path.join(base_path, 'output')
 
-# 1. 在 PPT 上添加水印
-add_watermark(input_ppt, watermark_image, output_ppt)
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
 
-# 2. 将带有水印的 PPT 转换为 PDF
-convert_to_pdf_aspose(output_ppt, output_pdf)
+    for ppt_file in os.listdir(input_folder):
+        if ppt_file.endswith('.pptx'):
+            input_ppt = os.path.join(input_folder, ppt_file)
+            output_ppt = os.path.join(output_folder, ppt_file)
+            output_pdf = os.path.join(output_folder, ppt_file.replace('.pptx', '.pdf'))
+            
+            # 1. 在 PPT 上添加水印
+            add_watermark(input_ppt, watermark_image, output_ppt)
 
-print("完成。已将带有水印的PPT转换为PDF。")
+            # 2. 将带有水印的 PPT 转换为 PDF
+            # convert_to_pdf_aspose(output_ppt, output_pdf)
+
+            print(f"完成。已将带有水印的 PPT 转换为 PDF，并保存到：{output_pdf}")
