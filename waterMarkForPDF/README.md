@@ -11,7 +11,7 @@
 
 ## 使用方法
 
-1. 将输入的 PPT 文件（如 `input.pptx`）和水印图片（如 `watermark.png`）放到 `assets` 文件夹中。
+1. 将输入的 PPT 文件（如 `input.pptx`）和水印图片（如 `watermark.png`）放到 `assets` 的 `input` 文件夹中。
 2. 修改代码中的 `input_ppt`、`watermark_image`、`output_ppt` 和 `output_pdf` 变量，以指向正确的文件路径（如果需要）。
 3. 运行 `main.py` 文件： `python main.py`
 4. 生成的带有水印的 PPT 文件将保存为 `output.pptx`（在 `assets` 文件夹中），生成的 PDF 文件将保存为 `output.pdf`（在 `assets` 文件夹中）。
