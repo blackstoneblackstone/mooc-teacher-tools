@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number of Learners Over Time</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Number of Learners Over Time</h1>
+    <canvas id="learnersChart" width="800" height="400"></canvas>
+    <script>
+        const data = {{ data|tojson }};
+        const colors = ['red', 'green', 'blue'];
+
+        const chartData = {
+            labels: data[0].dates,
+            datasets: data.map((course, i) => {
+                return {
+                    label: `${course.course_id}: ${course.name}`,
+                    data: course.nums,
+                    fill: false,
+                    borderColor: colors[i % colors.length],
+                    tension: 0.1
+                };
+            })
+        };
+
+        const config = {
+            type: 'line',
+            data: chartData,
+        };
+
+        console.log('config', config);
+
+        const ctx = document.getElementById('learnersChart');
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>
